@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: 0;
+		}
+
+		#chessboard {
+			display: flex;
+			flex-direction: column;
+
+			> * {
+				display: flex;
+			}
+
+			> * > {
+			}
+
+			> :nth-child(2n) {
+				> :nth-child(2n) {
+					background-color: sienna;
+				}
+				> :nth-child(2n + 1) {
+					background-color: antiquewhite;
+				}
+			}
+
+			> :nth-child(2n + 1) {
+				> :nth-child(2n + 1) {
+					background-color: sienna;
+				}
+				> :nth-child(2n) {
+					background-color: antiquewhite;
+				}
+			}
+		}
+	</style>
+	<body>
+		<div id="chessboard"></div>
+
+		<script>
+			const board = document.getElementById("chessboard");
+
+			for (let i = 0; i < 8; i++) {
+				const row = document.createElement("div");
+				for (let j = 0; j < 8; j++) {
+					row.appendChild(document.createElement("div"));
+				}
+				board.appendChild(row);
+			}
+		</script>
+	</body>
+</html>

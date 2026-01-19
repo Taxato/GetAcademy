@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Første oppgave!</title>
+		<link
+			rel="stylesheet"
+			href="Oppgave114A-E.css" />
+	</head>
+	<body>
+		<h1>Dette er en overskrift</h1>
+		<h2>Dette er en underoverskrift</h2>
+		<p>Dette er en paragraf</p>
+
+		<div class="content">
+			<ol>
+				<li>Dette er en</li>
+				<li>nummerert liste</li>
+			</ol>
+			<ul>
+				<li>Dette er</li>
+				<li>en punktliste</li>
+			</ul>
+			<a href="https://www.google.com">Dette er en lenke</a>
+			<form>
+				<label for="firstName">Fornavn:</label>
+				<input
+					type="text"
+					name="firstName"
+					id="firstName" />
+				<input
+					type="radio"
+					name="options"
+					id="option1"
+					value="option1" />
+				<input
+					type="radio"
+					name="options"
+					id="option2"
+					value="option2" />
+				<input
+					type="radio"
+					name="options"
+					id="option3"
+					value="option3" />
+				<input
+					type="checkbox"
+					name="checked" />
+				<button type="submit">Lagre</button>
+				<button type="reset">Reset</button>
+				<button type="button">Ingenting</button>
+			</form>
+			<script>
+				const form = document
+					.querySelector("form")
+					.addEventListener("submit", e => {
+						e.preventDefault();
+						console.log(e);
+						console.dir(e.target.children.firstName.value);
+					});
+			</script>
+		</div>
+	</body>
+</html>
