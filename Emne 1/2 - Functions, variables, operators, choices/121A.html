@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>121</title>
+	</head>
+	<body>
+		<button onclick="addCircle(document.getElementById('xInput').value)">
+			Legg til sirkel
+		</button>
+		<input
+			type="number"
+			id="xInput" />
+		<input
+			type="range"
+			id="rInput" />
+		<br />
+		<svg
+			id="mySvg"
+			width="800"
+			height="600"
+			style="background-color: lightgray"></svg>
+		<script>
+			function addCircle(x) {
+				document.getElementById("mySvg").innerHTML = /*HTML*/ `
+				<circle cx="${x}" cy="100" r="40" stroke="green" stroke-width="4" fill="yellow" />`;
+			}
+		</script>
+	</body>
+</html>

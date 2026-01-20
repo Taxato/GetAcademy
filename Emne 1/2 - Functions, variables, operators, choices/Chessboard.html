@@ -12,18 +12,25 @@
 		* {
 			margin: 0;
 			padding: 0;
-			box-sizing: 0;
+			box-sizing: border-box;
 		}
 
 		#chessboard {
 			display: flex;
 			flex-direction: column;
+			align-items: center;
+
+			margin-inline: 8px;
 
 			> * {
-				display: flex;
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
 			}
 
-			> * > {
+			> * > * {
+				width: 200px;
+				max-width: calc(100% / 8);
+				aspect-ratio: 1;
 			}
 
 			> :nth-child(2n) {
