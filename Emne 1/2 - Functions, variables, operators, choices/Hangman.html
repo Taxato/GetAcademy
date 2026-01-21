@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Hangman</title>
+
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: sans-serif;
+			}
+
+			body {
+				display: grid;
+				place-items: center;
+				height: 100vh;
+				background-color: rgb(0, 26, 32);
+			}
+
+			#main {
+				background-color: white;
+				padding: 2rem;
+				border-radius: 1rem;
+
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+
+				gap: 2rem;
+			}
+
+			#phrase {
+				font-size: 2rem;
+				text-align: center;
+				letter-spacing: 4pt;
+			}
+
+			#letterInput {
+				border: none;
+				outline: none;
+				border-bottom: 1px solid black;
+				width: 2ch;
+				font-size: larger;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<span>Gjettede bokstaver:</span>
+			<span id="guessedLetters"> </span>
+
+			<div id="phrase"></div>
+
+			<div>
+				<label for="letterInput">Gjett neste bokstav:</label>
+				<input
+					type="text"
+					maxlength="1"
+					id="letterInput" />
+			</div>
+		</div>
+
+		<script>
+			const secretPhrase = "Hangman";
+
+			const phraseEl = document.getElementById("phrase");
+			const guessInputEl = document.getElementById("letterInput");
+			const guessedLettersEl = document.getElementById("guessedLetters");
+
+			const guessedLetters = new Set();
+
+			phraseEl.innerText = "_".repeat(secretPhrase.length);
+
+			function update() {
+				let updatedPhrase = "";
+
+				for (let i = 0; i < secretPhrase.length; i++) {
+					const char = secretPhrase.charAt(i).toUpperCase();
+					updatedPhrase += guessedLetters.has(char) ? char : "_";
+				}
+
+				phraseEl.innerHTML = updatedPhrase;
+
+				guessedLettersEl.innerHTML =
+					Array.from(guessedLetters).join(", ");
+			}
+
+			window.addEventListener("keyup", e => {
+				if (e.key === "Enter") {
+					const input = guessInputEl.value.toUpperCase();
+					if (!input || guessedLetters.has(input)) return;
+
+					guessedLetters.add(input);
+
+					update();
+				}
+			});
+		</script>
+	</body>
+</html>
