@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				background-color: rgb(10, 4, 36);
+				display: grid;
+				place-items: center;
+				height: 100vh;
+			}
+
+			#grid {
+				display: grid;
+				grid-template-columns: repeat(3, 200px);
+				grid-template-rows: repeat(3, 200px);
+				gap: 20px;
+				padding: 40px;
+				border-radius: 20px;
+				background-color: azure;
+			}
+
+			.tile {
+				font-size: 100px;
+				display: grid;
+				place-items: center;
+			}
+
+			.tile:not(.blank) {
+				background-color: white;
+				border: 2px solid black;
+				border-radius: 10px;
+				box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.477);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="grid">
+			<div
+				id="tile0"
+				class="tile"></div>
+			<div
+				id="tile1"
+				class="tile"></div>
+			<div
+				id="tile2"
+				class="tile"></div>
+			<div
+				id="tile3"
+				class="tile"></div>
+			<div
+				id="tile4"
+				class="tile"></div>
+			<div
+				id="tile5"
+				class="tile"></div>
+			<div
+				id="tile6"
+				class="tile"></div>
+			<div
+				id="tile7"
+				class="tile"></div>
+			<div
+				id="tile8"
+				class="tile"></div>
+		</div>
+
+		<script>
+			const tiles = Array.from(
+				document.querySelectorAll(".tile").values()
+			);
+
+			console.log();
+
+			function checkForWinCondition() {
+				const winState = tiles.every((tile, i) => {
+					const num = Number(tile.innerHTML);
+					console.log(i, num);
+
+					return num === i + 1 || num === i + 2 || num === 0; //Empty tile translates to 0
+				});
+
+				if (winState) {
+					alert("You won!!");
+				}
+			}
+
+			function handleTileClick(e) {
+				const tile = e.target;
+				const tileIndex = Number(tile.id.slice(-1));
+
+				const neighbors = [
+					tileIndex + 1,
+					tileIndex - 1,
+					tileIndex + 3,
+					tileIndex - 3,
+				]
+					.filter(i => i >= 0 && i <= 8)
+					.map(i => tiles[i]);
+
+				const blankTile = neighbors.find(n =>
+					n.classList.contains("blank")
+				);
+				if (!blankTile) return;
+
+				tile.classList.add("blank");
+				blankTile.classList.remove("blank");
+				blankTile.innerHTML = tile.innerHTML;
+				tile.innerHTML = "";
+
+				setTimeout(() => {
+					checkForWinCondition();
+				}, 3);
+			}
+
+			for (const tile of tiles) {
+				tile.addEventListener("click", handleTileClick);
+			}
+
+			function shuffleArray(array) {
+				for (let i = array.length - 1; i > 0; i--) {
+					// Pick a remaining element at random index `j` from 0 to `i`
+					const j = Math.floor(Math.random() * (i + 1));
+
+					// Swap the elements at indices `i` and `j`
+					[array[i], array[j]] = [array[j], array[i]];
+				}
+				return array;
+			}
+
+			function setup() {
+				const initialPositions = Array.from(
+					{ length: 9, id: 2, froom: 3 },
+					(_, i) => i + 1
+				);
+				// shuffleArray(initialPositions);
+
+				tiles.forEach((tile, i) => {
+					const val = initialPositions[i];
+					if (val === 9) [tile.classList.add("blank")];
+					else tile.innerHTML = val;
+				});
+
+				// TODO Make puzzle always solvable
+			}
+
+			setup();
+		</script>
+	</body>
+</html>

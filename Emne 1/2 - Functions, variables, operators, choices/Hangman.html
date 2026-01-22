@@ -67,7 +67,7 @@
 		</div>
 
 		<script>
-			const secretPhrase = "Hangman";
+			const secretPhrase = "Hemmelig Ord";
 
 			const phraseEl = document.getElementById("phrase");
 			const guessInputEl = document.getElementById("letterInput");
@@ -75,25 +75,31 @@
 
 			const guessedLetters = new Set();
 
-			phraseEl.innerText = "_".repeat(secretPhrase.length);
-
 			function update() {
 				let updatedPhrase = "";
 
 				for (let i = 0; i < secretPhrase.length; i++) {
 					const char = secretPhrase.charAt(i).toUpperCase();
-					updatedPhrase += guessedLetters.has(char) ? char : "_";
+
+					updatedPhrase +=
+						char == " "
+							? " "
+							: guessedLetters.has(char)
+								? char
+								: "_";
 				}
 
 				phraseEl.innerHTML = updatedPhrase;
 
-				guessedLettersEl.innerHTML =
-					Array.from(guessedLetters).join(", ");
+				guessedLettersEl.innerHTML = Array.from(guessedLetters)
+					.sort()
+					.join(", ");
 			}
 
 			window.addEventListener("keyup", e => {
 				if (e.key === "Enter") {
 					const input = guessInputEl.value.toUpperCase();
+					guessInputEl.value = "";
 					if (!input || guessedLetters.has(input)) return;
 
 					guessedLetters.add(input);
@@ -101,6 +107,8 @@
 					update();
 				}
 			});
+
+			update();
 		</script>
 	</body>
 </html>

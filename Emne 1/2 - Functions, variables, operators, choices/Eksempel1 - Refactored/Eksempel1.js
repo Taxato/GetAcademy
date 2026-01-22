@@ -1,4 +1,4 @@
-function layout(layout = "") {
+function changeLayout(layout = "") {
 	document.getElementById("cards").classList = layout;
 }
 
@@ -84,6 +84,7 @@ function showJavaScript() {
             </ul>
         </div>
         `;
+	return 45;
 }
 
 function showBodyGame() {
