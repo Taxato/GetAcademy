@@ -15,7 +15,7 @@
 			}
 
 			body {
-				background-color: rgb(10, 4, 36);
+				background-color: rgb(15, 6, 54);
 				display: grid;
 				place-items: center;
 				height: 100vh;
@@ -46,47 +46,14 @@
 		</style>
 	</head>
 	<body>
-		<div id="grid">
-			<div
-				id="tile0"
-				class="tile"></div>
-			<div
-				id="tile1"
-				class="tile"></div>
-			<div
-				id="tile2"
-				class="tile"></div>
-			<div
-				id="tile3"
-				class="tile"></div>
-			<div
-				id="tile4"
-				class="tile"></div>
-			<div
-				id="tile5"
-				class="tile"></div>
-			<div
-				id="tile6"
-				class="tile"></div>
-			<div
-				id="tile7"
-				class="tile"></div>
-			<div
-				id="tile8"
-				class="tile"></div>
-		</div>
+		<div id="grid"></div>
 
 		<script>
-			const tiles = Array.from(
-				document.querySelectorAll(".tile").values()
-			);
+			"use strict";
 
-			console.log();
-
-			function checkForWinCondition() {
+			function checkForWinCondition(tiles) {
 				const winState = tiles.every((tile, i) => {
 					const num = Number(tile.innerHTML);
-					console.log(i, num);
 
 					return num === i + 1 || num === i + 2 || num === 0; //Empty tile translates to 0
 				});
@@ -96,17 +63,18 @@
 				}
 			}
 
-			function handleTileClick(e) {
+			function handleTileClick(tiles, e) {
 				const tile = e.target;
-				const tileIndex = Number(tile.id.slice(-1));
+				const tileIndex = Number(tile.id.match(/\d+/));
+				const boardSize = Math.sqrt(tiles.length);
 
 				const neighbors = [
 					tileIndex + 1,
 					tileIndex - 1,
-					tileIndex + 3,
-					tileIndex - 3,
+					tileIndex + boardSize,
+					tileIndex - boardSize,
 				]
-					.filter(i => i >= 0 && i <= 8)
+					.filter(i => i >= 0 && i <= tiles.length - 1)
 					.map(i => tiles[i]);
 
 				const blankTile = neighbors.find(n =>
@@ -120,12 +88,8 @@
 				tile.innerHTML = "";
 
 				setTimeout(() => {
-					checkForWinCondition();
+					checkForWinCondition(tiles);
 				}, 3);
-			}
-
-			for (const tile of tiles) {
-				tile.addEventListener("click", handleTileClick);
 			}
 
 			function shuffleArray(array) {
@@ -139,23 +103,79 @@
 				return array;
 			}
 
-			function setup() {
-				const initialPositions = Array.from(
-					{ length: 9, id: 2, froom: 3 },
-					(_, i) => i + 1
+			function checkPuzzleSolvability(puzzleArrangement) {
+				const puzzleSize = Math.sqrt(puzzleArrangement.length);
+				let inversionCount = 0;
+
+				for (let i = 0; i < puzzleArrangement.length - 1; i++) {
+					for (let j = i + 1; j < puzzleArrangement.length; j++) {
+						if (
+							puzzleArrangement[i] > 0 &&
+							puzzleArrangement[j] > 0 &&
+							puzzleArrangement[i] > puzzleArrangement[j]
+						)
+							inversionCount++;
+					}
+				}
+
+				if (puzzleSize % 2 == 1)
+					// Grid is odd sized
+					return inversionCount % 2 == 0;
+				else {
+					const blankPos =
+						puzzleSize -
+						Math.floor(puzzleArrangement.indexOf(0) / puzzleSize);
+					if (blankPos % 2 == 1) return inversionCount % 2 == 0;
+					else return inversionCount % 2 == 1;
+				}
+			}
+
+			function setup(boardSize = 3) {
+				const board = document.getElementById("grid");
+				board.style.gridTemplateColumns = `repeat(${boardSize},150px)`;
+				board.style.gridTemplateRows = `repeat(${boardSize},150px)`;
+
+				for (let i = 0; i < boardSize ** 2; i++) {
+					const tile = document.createElement("div");
+					tile.id = `tile${i}`;
+					tile.className = "tile";
+					board.appendChild(tile);
+				}
+
+				const tiles = Array.from(
+					document.querySelectorAll(".tile").values()
 				);
-				// shuffleArray(initialPositions);
+
+				for (const tile of tiles) {
+					tile.addEventListener(
+						"click",
+						handleTileClick.bind(null, tiles)
+					);
+				}
+
+				const initialPositions = Array.from(
+					{ length: boardSize ** 2 },
+					(_, i) => i
+				);
+
+				let attempts = 0;
+				do {
+					shuffleArray(initialPositions);
+					attempts++;
+				} while (!checkPuzzleSolvability(initialPositions));
+
+				console.log(attempts);
 
 				tiles.forEach((tile, i) => {
 					const val = initialPositions[i];
-					if (val === 9) [tile.classList.add("blank")];
+					if (val === 0) [tile.classList.add("blank")];
 					else tile.innerHTML = val;
 				});
 
-				// TODO Make puzzle always solvable
+				checkPuzzleSolvability(initialPositions);
 			}
 
-			setup();
+			setup(4);
 		</script>
 	</body>
 </html>
