@@ -132,8 +132,10 @@
 
 			function setup(boardSize = 3) {
 				const board = document.getElementById("grid");
-				board.style.gridTemplateColumns = `repeat(${boardSize},150px)`;
-				board.style.gridTemplateRows = `repeat(${boardSize},150px)`;
+				const tileSize = 450 / boardSize + "px";
+				board.style.gridTemplateColumns = `repeat(${boardSize},${tileSize})`;
+				board.style.gridTemplateRows = `repeat(${boardSize},${tileSize})`;
+				board.style.fontSize = tileSize - 70 + "px";
 
 				for (let i = 0; i < boardSize ** 2; i++) {
 					const tile = document.createElement("div");
@@ -175,7 +177,7 @@
 				checkPuzzleSolvability(initialPositions);
 			}
 
-			setup(4);
+			setup(5);
 		</script>
 	</body>
 </html>
