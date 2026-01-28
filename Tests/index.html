@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<style>
+			.hole {
+				width: 200px;
+				height: 200px;
+				background-color: lightblue;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.hole::after {
+				content: "";
+				width: 50%;
+				height: 50px;
+				position: absolute;
+				background-color: gray;
+				border-radius: 50%;
+				bottom: -30px;
+				left: 5%;
+				box-shadow: 20px -10px gray;
+			}
+
+			.mole {
+				position: absolute;
+				background-color: sienna;
+				width: 50px;
+				height: 150px;
+				top: 100%;
+				left: 50%;
+				transform: translateX(-50%);
+				transition: all 0.4s;
+				border-radius: 999rem 999rem 0 0;
+			}
+
+			.mole::before {
+				content: "";
+				position: inherit;
+				width: 20px;
+				height: 10px;
+				background-color: pink;
+				border-radius: 50%;
+				top: 45px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			.mole::after {
+				content: "";
+				position: inherit;
+				border-radius: 50%;
+				width: 10px;
+				height: 20px;
+				top: 20px;
+				left: 10px;
+				background-color: black;
+				box-shadow: 20px 0;
+			}
+
+			.hole.up .mole {
+				top: 30%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="hole up">
+			<div class="mole"></div>
+		</div>
+
+		<script>
+			const toggleMole = () =>
+				document.querySelector(".hole")?.classList.toggle("up");
+
+			window.addEventListener("click", toggleMole);
+		</script>
+	</body>
+</html>
