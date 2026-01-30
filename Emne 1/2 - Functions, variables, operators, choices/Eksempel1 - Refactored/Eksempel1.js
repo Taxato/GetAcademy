@@ -2,6 +2,18 @@ function changeLayout(layout = "") {
 	document.getElementById("cards").classList = layout;
 }
 
+function blankAll() {
+	for (const id of [
+		"cardTools",
+		"cardCss",
+		"cardHtml",
+		"cardJavaScript",
+		"cardGame",
+	]) {
+		document.getElementById(id).innerHTML = "";
+	}
+}
+
 function showTools() {
 	blankAll();
 	document.getElementById("cardTools").innerHTML = /*html*/ `
@@ -97,18 +109,6 @@ function showBodyGame() {
 	selectPart("head");
 	selectPart("body");
 	selectPart("legs");
-}
-
-function blankAll() {
-	for (const id of [
-		"cardTools",
-		"cardCss",
-		"cardHtml",
-		"cardJavaScript",
-		"cardGame",
-	]) {
-		document.getElementById(id).innerHTML = "";
-	}
 }
 
 function selectPart(part, index = 0) {
