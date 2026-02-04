@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body style="background-color: gray">
+		<script>
+			function repeatFunc(func) {
+				for (let i = 0; i < 10; i++) {
+					func();
+				}
+			}
+
+			let num = 0;
+			function addOne() {
+				num++;
+			}
+
+			const nums = [1, 2, 3, 4, 5];
+
+			function squareNumber(number) {
+				return number * number;
+			}
+
+			// Runs the function "squareNumber" on every element in the array "nums" and returns the result of each function call to a new array "squaredNums"
+			const squaredNums = nums.map(squareNumber);
+
+			console.log(squaredNums);
+
+			/*
+			function repeatFunc(addOne){
+				for(let i = 0; i < 10; i++){
+					addOne()
+				}
+			}
+			*/
+		</script>
+	</body>
+</html>

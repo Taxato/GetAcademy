@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<pre id="output"></pre>
+		<script>
+			function writeHash() {
+				document.getElementById("output").innerText += "#";
+			}
+
+			function writeSpace() {
+				document.getElementById("output").innerText += " ";
+			}
+
+			function writeLineBreak() {
+				document.getElementById("output").innerText += "\n";
+			}
+
+			//#region G
+			/*
+			########
+			 ######
+			  ####
+			   ##
+			*/
+			for (let i = 0; i < 8; i += 2) {
+				for (let j = 0; j < i / 2; j++) writeSpace();
+				for (let j = 0; j < 8 - i; j++) writeHash();
+				writeLineBreak();
+			}
+			//#endregion
+
+			writeLineBreak();
+			writeLineBreak();
+
+			//#region H
+			/*
+			   ##
+			  ####
+			 ######
+			########
+			########
+			 ######
+			  ####
+			   ##
+			*/
+
+			for (let i = 8; i >= 0; i -= 2) {
+				for (let j = 0; j < i / 2; j++) writeSpace();
+				for (let j = 0; j < 8 - i; j++) writeHash();
+				for (let j = 0; j < i / 2; j++) writeSpace();
+				writeLineBreak();
+			}
+			for (let i = 0; i < 8; i += 2) {
+				for (let j = 0; j < i / 2; j++) writeSpace();
+				for (let j = 0; j < 8 - i; j++) writeHash();
+				for (let j = 0; j < i / 2; j++) writeSpace();
+				writeLineBreak();
+			}
+			//#endregion
+
+			writeLineBreak();
+			writeLineBreak();
+
+			//#region I
+			/*
+			#            #
+			 ##        ##
+			  ###    ###
+			   ########
+			   ########
+			  ###    ###
+			 ##        ##
+			#            #
+			*/
+
+			// Gaps
+			// n(0) = 12
+			// n(1) = 8
+			// n(2) = 4
+			// n(3) = 0
+
+			for (let i = 0; i < 4; i++) {
+				for (let j = 0; j < i; j++) writeSpace();
+				for (let j = 0; j < i + 1; j++) writeHash();
+				for (let j = 0; j < 12 - 4 * i; j++) writeSpace();
+				for (let j = 0; j < i + 1; j++) writeHash();
+				writeLineBreak();
+			}
+			for (let i = 3; i >= 0; i--) {
+				for (let j = 0; j < i; j++) writeSpace();
+				for (let j = 0; j < i + 1; j++) writeHash();
+				for (let j = 0; j < 12 - 4 * i; j++) writeSpace();
+				for (let j = 0; j < i + 1; j++) writeHash();
+				writeLineBreak();
+			}
+			//#endregion
+
+			//#region J
+			/**
+			 * Function for finding the longest word in a sentence
+			 * @param {string} sentence
+			 * @returns {string} The longest word found in the sentence
+			 */
+			function findLongestWord(sentence) {
+				return sentence
+					.split(" ")
+					.sort((a, b) => b.length - a.length)[0];
+			}
+
+			const sentence =
+				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem laudantium officia et";
+
+			console.log(findLongestWord(sentence));
+			//#endregion
+		</script>
+	</body>
+</html>
