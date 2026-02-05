@@ -109,15 +109,59 @@
 			 * @returns {string} The longest word found in the sentence
 			 */
 			function findLongestWord(sentence) {
-				return sentence
-					.split(" ")
-					.sort((a, b) => b.length - a.length)[0];
+				let longestWord = "";
+				for (const word of sentence.split(" ")) {
+					if (word.length > longestWord.length) longestWord = word;
+				}
+				return { word: longestWord, length: longestWord.length };
 			}
+
+			/**
+			 * One-liner
+			 * @param {string} s
+			 **/
+			// prettier-ignore
+			const findLongestWordArrow = s => s.split(" ").reduce((a, b) => (a.length > b.length ? a : b));
+
+			/**
+			 * Function for finding the word with most vowels (a,e,i,o,u) in a sentence
+			 * @param {string} sentence
+			 * @returns {string} The word with most vowels in the sentence
+			 */
+			function findWordWithMostVowels(sentence) {
+				const vowels = new Set(["a", "e", "i", "o", "u"]);
+
+				let mostVowelCount = 0;
+				let wordWihMostVowels = "";
+				for (const word of sentence.toLowerCase().split(" ")) {
+					let numVowels = 0;
+					for (const letter of word.split("")) {
+						if (vowels.has(letter)) numVowels++;
+					}
+					if (numVowels > mostVowelCount) {
+						wordWihMostVowels = word;
+						mostVowelCount = numVowels;
+					}
+				}
+
+				return { word: wordWihMostVowels, numVowels: mostVowelCount };
+			}
+
+			/**
+			 * One-liner
+			 * @param {string} s
+			 **/
+			// prettier-ignore
+			const findWordWithMostVowelsArrow = s => s.split(" ").reduce((a, b) => a.match(/[^aeiou]/gi).length > b.match(/[^aeiou]/gi).length ? a : b);
 
 			const sentence =
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem laudantium officia et";
 
 			console.log(findLongestWord(sentence));
+			console.log(findWordWithMostVowels(sentence));
+
+			console.log(findLongestWordArrow(sentence));
+			console.log(findWordWithMostVowelsArrow(sentence));
 			//#endregion
 		</script>
 	</body>
