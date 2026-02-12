@@ -19,6 +19,7 @@
 				"121 34          ", // delvis utfylt, samme tall to ganger på en rad
 				"12  34  1       ", // delvis utfylt, samme tall to ganger på en kolonne
 				"12  34    2    2", // delvis utfylt, samme tall to ganger i en firkant
+				"12  56    2    2", // delvis utfylt, ugyldig tall
 				"1234341221434321", // helt utfylt, ingen feil
 				"1434321221434321", // helt utfylt, samme tall to ganger på en rad
 				"1432341221434321", // helt utfylt, samme tall to ganger på en kolonne
@@ -53,6 +54,11 @@
 				for (let square of board) {
 					html += /*HTML*/ `<div>${square}</div>`;
 				}
+				// board.split("").forEach((square, i) => {
+				// 	html += /* html */ `
+				// 		<div>${i}</div>
+				// 	`;
+				// });
 				return html;
 			}
 
@@ -60,7 +66,9 @@
 			function selectBoard(index) {
 				selectedBoardIndex = index;
 				updateView();
+				console.log(validateSudokuBoard(boards[selectedBoardIndex]));
 			}
 		</script>
+		<script src="validateSudokoboard.js"></script>
 	</body>
 </html>

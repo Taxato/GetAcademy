@@ -19,7 +19,7 @@
 				const sudokuboard = "12  34";
 
 				// act
-				const validation = validateSudokuboard(sudokuboard);
+				const validation = validateSudokuBoard(sudokuboard);
 
 				// assert
 				assert.equal(validation, "ugyldig brett, feil lengde");
@@ -30,7 +30,7 @@
 				const sudokuboard = "12  34     z    ";
 
 				// act
-				const validation = validateSudokuboard(sudokuboard);
+				const validation = validateSudokuBoard(sudokuboard);
 
 				// assert
 				assert.equal(validation, "ugyldig brett, ugyldig tegn");
@@ -41,7 +41,7 @@
 				const sudokuboard = "12  34          ";
 
 				// act
-				const validation = validateSudokuboard(sudokuboard);
+				const validation = validateSudokuBoard(sudokuboard);
 
 				// assert
 				assert.equal(validation, "delvis utfylt, ingen feil");
@@ -54,7 +54,7 @@
 					const sudokuboard = "121 34          ";
 
 					// act
-					const validation = validateSudokuboard(sudokuboard);
+					const validation = validateSudokuBoard(sudokuboard);
 
 					// assert
 					assert.equal(validation, "delvis utfylt, feil i rad");
@@ -68,7 +68,7 @@
 					const sudokuboard = "12  34  1       ";
 
 					// act
-					const validation = validateSudokuboard(sudokuboard);
+					const validation = validateSudokuBoard(sudokuboard);
 
 					// assert
 					assert.equal(validation, "delvis utfylt, feil i kolonne");
@@ -82,7 +82,7 @@
 					const sudokuboard = "12  34    2    2";
 
 					// act
-					const validation = validateSudokuboard(sudokuboard);
+					const validation = validateSudokuBoard(sudokuboard);
 
 					// assert
 					assert.equal(validation, "delvis utfylt, feil i firkant");
@@ -94,7 +94,7 @@
 				const sudokuboard = "1234341221434321";
 
 				// act
-				const validation = validateSudokuboard(sudokuboard);
+				const validation = validateSudokuBoard(sudokuboard);
 
 				// assert
 				assert.equal(validation, "helt utfylt, ingen feil");
@@ -107,7 +107,7 @@
 					const sudokuboard = "1434321221434321";
 
 					// act
-					const validation = validateSudokuboard(sudokuboard);
+					const validation = validateSudokuBoard(sudokuboard);
 
 					// assert
 					assert.equal(validation, "helt utfylt, feil i rad");
@@ -121,7 +121,7 @@
 					const sudokuboard = "1432341221434321";
 
 					// act
-					const validation = validateSudokuboard(sudokuboard);
+					const validation = validateSudokuBoard(sudokuboard);
 
 					// assert
 					assert.equal(validation, "helt utfylt, feil i kolonne");
