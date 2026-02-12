@@ -1,3 +1,3 @@
-function validateSudokuboard(sudoboardString){
-    return 'helt utfylt, ingen feil';
+function validateSudokuboard(sudoboardString) {
+	return "helt utfylt, ingen feil";
 }
