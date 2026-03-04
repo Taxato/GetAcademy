@@ -1,8 +1,8 @@
 function togglePathHint() {
-  showPath = !showPath;
-  updateView();
+	showPath = !showPath;
+	updateView();
 }
 
-function createBlankBoard(value=0) {
-  return Array(rowCount * colCount).fill(value);
+function createBlankBoard(value = 0) {
+	return Array(rowCount * colCount).fill(value);
 }
