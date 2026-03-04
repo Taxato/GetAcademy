@@ -86,17 +86,17 @@
 			}
 		</style>
 		<script src="./js/common.js"></script>
-		<script src="./js/controller.js"></script>
 		<script src="./js/model.js"></script>
 		<script src="./js/view.js"></script>
+		<script src="./js/controller.js"></script>
 	</head>
 
 	<body>
 		<div class="wrap">
 			<div class="controls">
-				<button>◀ Prev</button>
-				<button>Next ▶</button>
-				<button>Nytt brett</button>
+				<button onclick="prevStep()">◀ Prev</button>
+				<button onclick="nextStep()">Next ▶</button>
+				<button onclick="newBoard()">Nytt brett</button>
 				<button onclick="togglePathHint()">Vis/skjul sti</button>
 			</div>
 
@@ -110,6 +110,8 @@
 
 		<script>
 			updateView();
+
+			newBoard();
 		</script>
 	</body>
 </html>
