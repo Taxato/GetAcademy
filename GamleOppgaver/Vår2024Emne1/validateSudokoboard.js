@@ -6,6 +6,7 @@
  */
 function validateSudokuBoard(sudoboardString, size = 4) {
 	const individualSquares = sudoboardString.split("");
+	const completelyFilled = !individualSquares.includes(" ");
 
 	if (individualSquares.length !== size ** 2)
 		return "ugyldig brett, feil lengde";
@@ -47,20 +48,31 @@ function validateSudokuBoard(sudoboardString, size = 4) {
 		[rows[2][0], rows[2][1], rows[3][0], rows[3][1]].join(""),
 		[rows[2][2], rows[2][3], rows[3][2], rows[3][3]].join(""),
 	];
-	console.log(squares);
 
 	for (const row of rows) {
 		if (containsDuplicateNumber(row)) {
 			console.log(row);
-			return "Invalid board: duplicate numbers in row";
+			return completelyFilled
+				? "helt utfylt, feil i rad"
+				: "delvis utfylt, feil i rad";
 		}
 	}
 
 	for (const col of cols) {
 		if (containsDuplicateNumber(col))
-			return "Invalid board: duplicate numbers in col";
+			return completelyFilled
+				? "helt utfylt, feil i kolonne"
+				: "delvis utfylt, feil i kolonne";
 	}
 
+	for (const square of squares) {
+		if (containsDuplicateNumber(square))
+			return completelyFilled
+				? "helt utfylt, feil i firkant"
+				: "delvis utfylt, feil i firkant";
+	}
+
+	if (!completelyFilled) return "delvis utfylt, ingen feil";
 	return "helt utfylt, ingen feil";
 }
 

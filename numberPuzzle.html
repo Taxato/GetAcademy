@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			#app {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(3, 1fr);
+				height: 400px;
+				width: 400px;
+				background-color: whitesmoke;
+			}
+
+			.cell {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 1px solid black;
+				cursor: pointer;
+			}
+
+			.cell:hover {
+				background-color: aquamarine;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app"></div>
+
+		<script>
+			//model
+			let board = "3724X6815";
+
+			//view
+			updateView();
+			function updateView() {
+				document.getElementById("app").innerHTML = /*HTML*/ `
+					${cellHtml(0)}
+					${cellHtml(1)}
+					${cellHtml(2)}
+					${cellHtml(3)}
+					${cellHtml(4)}
+					${cellHtml(5)}
+					${cellHtml(6)}
+					${cellHtml(7)}
+					${cellHtml(8)}`;
+			}
+
+			function cellHtml(index) {
+				return /*HTML*/ `
+					<!--<div onclick="swap(${board.charAt(index)})" class="cell">-->
+					<div onclick="swap(${index})" class="cell">
+						${board.charAt(index)}
+					</div>`;
+			}
+
+			//controller
+			function swap(index) {
+				console.log(index);
+				const indexOfX = board.indexOf("X");
+
+				const val = board[index];
+				let newBoard = board.replace(val, "Y");
+				newBoard = newBoard.replace("X", val);
+				newBoard = newBoard.replace("Y", "X");
+				console.log(newBoard);
+				board = newBoard;
+				updateView();
+			}
+		</script>
+	</body>
+</html>

@@ -26,3 +26,15 @@
 .board > div:nth-child(8) {
 	border-bottom: 2px solid blue;
 }
+
+.number-btns {
+	display: grid;
+	gap: 10px;
+	margin: 20px;
+	grid-template-columns: 50px 50px;
+	grid-template-rows: 50px 50px;
+
+	> button[data-selected="true"] {
+		outline: 2px solid black;
+	}
+}

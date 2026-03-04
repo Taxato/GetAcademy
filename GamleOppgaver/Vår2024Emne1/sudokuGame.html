@@ -15,6 +15,7 @@
 		<script>
 			// model
 			const boards = [
+				"12 34           ", // delvis utfylt, ingen feil
 				"12  34          ", // delvis utfylt, ingen feil
 				"121 34          ", // delvis utfylt, samme tall to ganger på en rad
 				"12  34  1       ", // delvis utfylt, samme tall to ganger på en kolonne
@@ -25,6 +26,7 @@
 				"1432341221434321", // helt utfylt, samme tall to ganger på en kolonne
 			];
 			let selectedBoardIndex = 0;
+			let selectedNumber = 1;
 
 			// view
 			updateView();
@@ -33,6 +35,7 @@
                 <div class="board">
                     ${createSquares()}
                 </div>
+				${createNumberButtons()}
                 <select onchange="selectBoard(this.value)">
                     ${createOptions()}
                 </select>
@@ -54,12 +57,18 @@
 				for (let square of board) {
 					html += /*HTML*/ `<div>${square}</div>`;
 				}
-				// board.split("").forEach((square, i) => {
-				// 	html += /* html */ `
-				// 		<div>${i}</div>
-				// 	`;
-				// });
 				return html;
+			}
+
+			function createNumberButtons() {
+				return /* html */ `
+					<div class="number-btns">
+						<button onclick="selectedNumber=1" data-selected="${selectedNumber == 1}">1</button>
+						<button onclick="selectedNumber=2" data-selected="${selectedNumber == 2}">2</button>
+						<button onclick="selectedNumber=3" data-selected="${selectedNumber == 3}">3</button>
+						<button onclick="selectedNumber=4" data-selected="${selectedNumber == 4}">4</button>
+					</div>
+				`;
 			}
 
 			// controller
@@ -67,6 +76,11 @@
 				selectedBoardIndex = index;
 				updateView();
 				console.log(validateSudokuBoard(boards[selectedBoardIndex]));
+			}
+
+			function selectNumber(num) {
+				selectedNumber = num;
+				updateView();
 			}
 		</script>
 		<script src="validateSudokoboard.js"></script>

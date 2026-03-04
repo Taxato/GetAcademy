@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Word counter</title>
+
+		<style>
+			body {
+				background-color: rgb(67, 67, 67);
+			}
+
+			textarea {
+				width: 100%;
+				height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<textarea
+			id="text-input"
+			placeholder="Write some text"
+			onchange="globalText = this.value">
+Color (or colour in Commonwealth English) is the visual perception produced by the activation of the different types of cone cells in the eye caused by light. Though color is not an inherent property of matter, color perception is related to an object's light absorption, emission, reflection and transmission. For most humans, visible wavelengths of light are the ones perceived in the visible light spectrum, with three types of cone cells (trichromacy). Other animals may have a different number of cone cell types or have eyes sensitive to different wavelengths, such as bees that can distinguish ultraviolet, and thus have a different color sensitivity range. Animal perception of color originates from different light wavelength or spectral sensitivity in cone cell types, which is then processed by the brain.
+
+Colors have perceived properties such as hue, colorfulness, and lightness. Colors can also be additively mixed (mixing light) or subtractively mixed (mixing pigments). If one color is mixed in the right proportions, because of metamerism, they may look the same as another stimulus with a different reflection or emission spectrum. For convenience, colors can be organized in a color space, which when being abstracted as a mathematical color model can assign each region of color with a corresponding set of numbers. As such, color spaces are an essential tool for color reproduction in print, photography, computer monitors, and television. Some of the most well-known color models and color spaces are RGB, CMYK, HSL/HSV, CIE Lab, and YCbCr/YUV.</textarea
+		>
+		<button onclick="countWords(globalText, true)">Count words</button>
+
+		<script>
+			let globalText = document.getElementById("text-input").value;
+
+			function cleanWord(word) {
+				return word
+					.toLowerCase()
+					.replaceAll(",", "")
+					.replaceAll(".", "")
+					.replaceAll("(", "")
+					.replaceAll(")", "")
+					.replaceAll("'", "");
+			}
+
+			/**
+			 * @param {string} text
+			 * @param {boolean} clean
+			 */
+			function countWords(text, clean) {
+				const wordsArr = clean
+					? text.split(" ").map(cleanWord)
+					: text.split(" ");
+
+				const wordsArrRegex = Array.from(text.matchAll(/\w+/gi));
+				console.log(wordsArrRegex);
+
+				const wordCounts = {};
+
+				for (const word of wordsArr) {
+					if (!wordCounts[word]) wordCounts[word] = 0;
+
+					wordCounts[word]++;
+				}
+
+				Math.random();
+
+				const entries = Object.entries(wordCounts);
+
+				entries.sort((a, b) => b[1] - a[1]);
+
+				// entries.sort(function (entry1, entry2) {
+				// 	return entry2[1] - entry1[1];
+				// });
+
+				console.log(entries);
+			}
+		</script>
+	</body>
+</html>
