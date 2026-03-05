@@ -1,25 +1,25 @@
-/** @param {number} v */
-function getCellClass(v) {
-	if (v === WATER) return "water";
-	if (v === ROCK) return "rock";
-	if (v === GOAL) return "goal";
+/** @param {number} type */
+function getCellClass(type) {
+	if (type === WATER) return "water";
+	if (type === ROCK) return "rock";
+	if (type === GOAL) return "goal";
 	return "safe";
 }
 
 /**
- * @param {number} v
+ * @param {number} type
  * @param {boolean} isFrog
  */
-function getCellIcon(v, isFrog) {
+function getCellIcon(type, isFrog) {
 	if (isFrog) return "🐸";
-	if (v === WATER) return "🌊";
-	if (v === ROCK) return "🪨";
-	if (v === GOAL) return "🏁";
+	if (type === WATER) return "🌊";
+	if (type === ROCK) return "🪨";
+	if (type === GOAL) return "🏁";
 	return "";
 }
 
 /**
- * Sets global "path" variable to number[] or null if failed to generate path
+ * Sets global "path" variable to number[] or returns null if failed to generate path
  * @param {number} maxSteps
  */
 function generatePath(maxSteps) {
@@ -83,6 +83,7 @@ function generatePath(maxSteps) {
 		step++;
 	}
 
+	// Convert list of coordinates to list of indeces and set path to new list
 	path = newPath.map(getCellIndex);
 }
 
@@ -92,21 +93,24 @@ function generatePath(maxSteps) {
 function randomizeBoard(path) {
 	for (let i = 0; i < map.length; i++) {
 		const rand = Math.random();
-		if (rand > 0.75) map[i] = WATER;
-		else if (rand > 0.5) map[i] = ROCK;
+		if (rand > 0.75)
+			map[i] = WATER; // 25% chance
+		else if (rand > 0.5) map[i] = ROCK; // 25% chance
 	}
 
+	// Clear every map position that is on the path
 	for (const pos of path) {
-		map[pos] = 0;
+		map[pos] = SAFE;
 	}
 
-	map[path.at(-1)] = 3;
+	// Set the goal
+	map[path.at(-1)] = GOAL;
 }
 
-function newBoard() {
+function resetGame() {
 	map.fill(0);
-	path = null;
-	while (path === null || path.length === 0) generatePath(20);
+	path = [];
+	while (path.length === 0) generatePath(20);
 	currentStep = 0;
 	frogIndex = path[currentStep];
 	randomizeBoard(path);

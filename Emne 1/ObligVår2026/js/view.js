@@ -4,13 +4,13 @@ function updateView() {
 
 	let html = "";
 	for (let index = 0; index < map.length; index++) {
-		const v = map[index];
+		const type = map[index];
 		const isFrog = index === frogIndex;
 		const isPath = showPath && path.includes(index);
 
 		html += /* html */ `
-			<div class="cell ${getCellClass(v)} ${isFrog ? "frog" : ""} ${isPath ? "pathHint" : ""}">
-				${getCellIcon(v, isFrog)}
+			<div class="cell ${getCellClass(type)} ${isFrog ? "frog" : ""} ${isPath ? "pathHint" : ""}">
+				${getCellIcon(type, isFrog)}
 			</div>
     	`;
 	}

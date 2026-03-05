@@ -96,7 +96,7 @@
 			<div class="controls">
 				<button onclick="prevStep()">◀ Prev</button>
 				<button onclick="nextStep()">Next ▶</button>
-				<button onclick="newBoard()">Nytt brett</button>
+				<button onclick="resetGame()">Nytt brett</button>
 				<button onclick="togglePathHint()">Vis/skjul sti</button>
 			</div>
 
@@ -109,9 +109,7 @@
 		</div>
 
 		<script>
-			updateView();
-
-			newBoard();
+			resetGame();
 		</script>
 	</body>
 </html>
