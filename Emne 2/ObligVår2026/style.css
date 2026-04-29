@@ -28,15 +28,18 @@ h2 {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.severity-low {
+.severity-low,
+.priority-low {
 	color: green;
 }
 
-.severity-medium {
+.severity-medium,
+.priority-medium {
 	color: orange;
 }
 
-.severity-high {
+.severity-high,
+.priority-high {
 	color: red;
 }
 
@@ -46,11 +49,17 @@ h2 {
 
 .filter-group {
 	display: flex;
-	gap: 8px;
+	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 16px;
 }
 
-.filter-group button {
+.status-filter-group {
+	display: flex;
+	gap: 8px;
+}
+
+.status-filter-group button {
 	padding: 6px 14px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
@@ -58,11 +67,31 @@ h2 {
 	cursor: pointer;
 }
 
-.filter-group button.active {
+.status-filter-group button.active {
 	background-color: #3a86ff;
 	color: white;
 	border-color: #3a86ff;
 	font-weight: bold;
+}
+
+.priority-sort-button {
+	padding: 6px 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	img {
+		height: 1.5em;
+		rotate: 90deg;
+	}
+
+	&.sort-direction-ascending img {
+		rotate: -90deg;
+	}
 }
 
 input,
