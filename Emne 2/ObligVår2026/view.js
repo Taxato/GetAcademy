@@ -1,24 +1,40 @@
 function updateView() {
+	// Keep search bar active
+	const searchInput = document.getElementById("search-input");
+	const cursor = searchInput?.selectionStart;
+	const hadFocus = document.activeElement === searchInput;
+
 	document.getElementById("app").innerHTML = /*HTML*/ `
         <h1>BugTracker</h1>
         ${createButtonsHtml()}
         ${renderPage()}
     `;
+
+	// Re-Set focus
+	if (hadFocus) {
+		const newInput = document.getElementById("search-input");
+		newInput.focus();
+		newInput.setSelectionRange(cursor, cursor);
+	}
 }
 
-function overViewHtml() {
-	let html = /*HTML*/ `
+function overviewHtml() {
+	return /*HTML*/ `
 		<h2>Oversikt</h2>
 		<div class="filter-group">
-			<button>Alle</button>
-			<button>Open</button>
-			<button>Closed</button>
+			<button onclick="handleSelectFilter('all')" ${isButtonActive("all")}>Alle</button>
+			<button onclick="handleSelectFilter('open')" ${isButtonActive("open")}>Open</button>
+			<button onclick="handleSelectFilter('closed')" ${isButtonActive("closed")}>Closed</button>
 		</div>
+		${errorsHtml(model.data.errors)}
 	`;
+}
 
-	for (let error of model.data.errors) {
-		const person = model.data.persons.find(p => p.id == error.personId);
-		html += /*HTML*/ `
+function errorsHtml(errors) {
+	return errors
+		.map(error => {
+			const person = model.data.persons.find(p => p.id == error.personId);
+			return /*HTML*/ `
 			<div class="error-card">
 				<h3>${error.title}</h3>
 				<p>Description: ${error.description}</p>
@@ -34,9 +50,8 @@ function overViewHtml() {
 				</button>
 			</div>
 		`;
-	}
-
-	return html;
+		})
+		.join(" ");
 }
 
 function createButtonsHtml() {
@@ -53,9 +68,13 @@ function isActive(currentPage) {
 	return model.app.page == currentPage ? "class='active'" : "";
 }
 
+function isButtonActive(btn) {
+	return model.inputs.overview.activeFilter === btn ? 'class="active"' : "";
+}
+
 function renderPage() {
 	if (model.app.page == "overview") {
-		return overViewHtml();
+		return overviewHtml();
 	} else if (model.app.page == "search") {
 		return searchErrorsHtml();
 	} else if (model.app.page == "addErrors") {
@@ -66,10 +85,16 @@ function renderPage() {
 function searchErrorsHtml() {
 	let html = /*HTML*/ `
 		<h2>Søk</h2>
-		<input 
-		type="text" 
-		placeholder="Søk etter feil..."/>
+		<input
+			id="search-input"
+			value="${model.inputs.search.searchTerm}"
+			oninput="handleSearch(this.value)"
+			type="text" 
+			placeholder="Søk etter feil..."/>
+
+		${errorsHtml(filterErrors())}
 	`;
+
 	return html;
 }
 

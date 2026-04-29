@@ -3,6 +3,15 @@ const model = {
 		page: "overview",
 	},
 
+	inputs: {
+		overview: {
+			activeFilter: "all",
+		},
+		search: {
+			searchTerm: "",
+		},
+	},
+
 	data: {
 		persons: [
 			{ id: 1, name: "Per" },
