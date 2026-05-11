@@ -26,7 +26,7 @@ public class PuzzleViewModel
 	private static double TileSize => 90;
 
 
-	public double BoardSize =>
+	public static double BoardSize =>
 		GridSize * TileSize + (GridSize - 1) * Gap;
 
 	public ObservableCollection<Tile> Tiles { get; } = [];
