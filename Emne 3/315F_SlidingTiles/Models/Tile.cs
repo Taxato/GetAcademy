@@ -5,9 +5,12 @@ namespace _315F_SlidingTiles.Models;
 public partial class Tile : ObservableObject
 {
 	[ObservableProperty] public partial int Value { get; set; }
+	[ObservableProperty] public partial double X { get; set; }
+	[ObservableProperty] public partial double Y { get; set; }
 
-	public int Row { get; init; }
-	public int Col { get; init; }
+
+	public int Row { get; set; }
+	public int Col { get; set; }
 
 	public bool IsEmpty => Value == 0;
 

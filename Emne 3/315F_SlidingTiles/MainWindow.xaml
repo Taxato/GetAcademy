@@ -4,44 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:_315F_SlidingTiles.ViewModels"
+        xmlns:controls="clr-namespace:_315F_SlidingTiles.Controls"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewModels:PuzzleViewModel}"
         Title="MainWindow"
-        Width="400" Height="400">
+        Width="1200" Height="1200">
 
     <Grid>
-        <ItemsControl ItemsSource="{Binding Tiles}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Rows="4" Columns="4" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+        <Canvas Width="380" Height="380">
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Content="{Binding Value}"
-                            FontSize="24"
-                            Margin="2"
-                            Background="LightGray"
-                            Command="{Binding DataContext.TileClickCommand,
-                                      RelativeSource={RelativeSource AncestorType=Window}}"
-                            CommandParameter="{Binding}">
+            <ItemsControl ItemsSource="{Binding Tiles}">
 
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsEmpty}" Value="True">
-                                        <Setter Property="Opacity" Value="0" />
-                                        <Setter Property="IsHitTestVisible" Value="False" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <controls:TileControl
+                            Command="{Binding DataContext.TileClickCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
 
-        </ItemsControl>
+            </ItemsControl>
+
+        </Canvas>
     </Grid>
 </Window>

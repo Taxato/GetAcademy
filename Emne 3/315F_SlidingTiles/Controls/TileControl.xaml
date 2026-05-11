@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="_315F_SlidingTiles.Controls.TileControl"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models1="clr-namespace:_315F_SlidingTiles.Models"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=models1:Tile}"
+             Width="90"
+             Height="90">
+    <UserControl.RenderTransform>
+        <TranslateTransform
+            X="{Binding X}"
+            Y="{Binding Y}" />
+    </UserControl.RenderTransform>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+
+            <Style.Triggers>
+
+                <DataTrigger Binding="{Binding IsEmpty}"
+                             Value="True">
+
+                    <Setter Property="Opacity"
+                            Value="0" />
+
+                    <Setter Property="IsHitTestVisible"
+                            Value="False" />
+
+                </DataTrigger>
+
+            </Style.Triggers>
+
+        </Style>
+    </UserControl.Style>
+
+    <Button Background="Transparent"
+            BorderThickness="0"
+            Padding="0"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Command="{Binding Command, ElementName=Root}"
+            CommandParameter="{Binding}">
+
+        <Border x:Name="TileBorder"
+                Background="LightSteelBlue"
+                CornerRadius="12"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+
+            <TextBlock Text="{Binding Value}"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+
+        </Border>
+
+    </Button>
+
+</UserControl>

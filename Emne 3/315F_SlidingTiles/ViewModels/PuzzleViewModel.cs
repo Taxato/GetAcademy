@@ -9,6 +9,8 @@ public class PuzzleViewModel
 {
 	private const int Size = 4;
 	private const int ShuffleAmount = 500;
+	private const double TileSize = 100;
+	private const double Gap = 5;
 
 	private readonly Random _random = new();
 
@@ -33,8 +35,24 @@ public class PuzzleViewModel
 
 		for (var r = 0; r < Size; r++)
 		for (var c = 0; c < Size; c++)
-			if (r == Size - 1 && c == Size - 1) Tiles.Add(new Tile { Value = 0, Row = r, Col = c });
-			else Tiles.Add(new Tile { Value = value++, Row = r, Col = c });
+			if (r == Size - 1 && c == Size - 1)
+				Tiles.Add(new Tile
+				{
+					Value = 0,
+					Row = r,
+					Col = c,
+					X = c * (TileSize + Gap),
+					Y = r * (TileSize + Gap)
+				});
+			else
+				Tiles.Add(new Tile
+				{
+					Value = value++,
+					Row = r,
+					Col = c,
+					X = c * (TileSize + Gap),
+					Y = r * (TileSize + Gap)
+				});
 	}
 
 	private void Shuffle()
@@ -59,7 +77,7 @@ public class PuzzleViewModel
 
 		if (!CheckTilesAdjacent(empty, tile)) return;
 
-		SwapTiles(empty, tile);
+		SwapTiles(tile, empty);
 
 		CheckWin();
 	}
@@ -69,25 +87,45 @@ public class PuzzleViewModel
 		return Tiles.First(t => t.IsEmpty);
 	}
 
-	private bool CheckTilesAdjacent(Tile a, Tile b)
+	private static bool CheckTilesAdjacent(Tile a, Tile b)
 	{
 		return (Math.Abs(a.Row - b.Row) == 1 && a.Col == b.Col) ||
 		       (Math.Abs(a.Col - b.Col) == 1 && a.Row == b.Row);
 	}
 
-	private void SwapTiles(Tile a, Tile b)
+	private static void SwapTiles(Tile tile, Tile empty)
 	{
-		(a.Value, b.Value) = (b.Value, a.Value);
+		var oldRow = tile.Row;
+		var oldCol = tile.Col;
+
+		tile.Row = empty.Row;
+		tile.Col = empty.Col;
+
+		tile.X = tile.Col * (TileSize + Gap);
+		tile.Y = tile.Row * (TileSize + Gap);
+
+		empty.Row = oldRow;
+		empty.Col = oldCol;
+
+		empty.X = empty.Col * (TileSize + Gap);
+		empty.Y = empty.Row * (TileSize + Gap);
 	}
 
 	private void CheckWin()
 	{
-		for (var i = 0; i < Tiles.Count - 1; i++)
-			if (Tiles[i].Value != i + 1)
+		foreach (var tile in Tiles)
+		{
+			if (tile.IsEmpty)
+				continue;
+
+			var expectedValue =
+				tile.Row * Size + tile.Col + 1;
+
+			if (tile.Value != expectedValue)
 				return;
+		}
 
-		if (!Tiles.Last().IsEmpty) return;
-
-		MessageBox.Show("You win!");
+		var empty = GetEmptyTile();
+		if (empty is { Row: Size - 1, Col: Size - 1 }) MessageBox.Show("You win!");
 	}
 }
