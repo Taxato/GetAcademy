@@ -7,10 +7,10 @@ namespace _315F_SlidingTiles.ViewModels;
 
 public class PuzzleViewModel
 {
-	private const int Size = 4;
-	private const int ShuffleAmount = 500;
-	private const double TileSize = 100;
+	private const int GridSize = 4;
 	private const double Gap = 5;
+	private const int ShuffleAmount = 500;
+
 
 	private readonly Random _random = new();
 
@@ -23,6 +23,12 @@ public class PuzzleViewModel
 		Shuffle();
 	}
 
+	private static double TileSize => 90;
+
+
+	public double BoardSize =>
+		GridSize * TileSize + (GridSize - 1) * Gap;
+
 	public ObservableCollection<Tile> Tiles { get; } = [];
 
 	public IRelayCommand<Tile> TileClickCommand { get; }
@@ -33,9 +39,9 @@ public class PuzzleViewModel
 
 		var value = 1;
 
-		for (var r = 0; r < Size; r++)
-		for (var c = 0; c < Size; c++)
-			if (r == Size - 1 && c == Size - 1)
+		for (var r = 0; r < GridSize; r++)
+		for (var c = 0; c < GridSize; c++)
+			if (r == GridSize - 1 && c == GridSize - 1)
 				Tiles.Add(new Tile
 				{
 					Value = 0,
@@ -119,13 +125,13 @@ public class PuzzleViewModel
 				continue;
 
 			var expectedValue =
-				tile.Row * Size + tile.Col + 1;
+				tile.Row * GridSize + tile.Col + 1;
 
 			if (tile.Value != expectedValue)
 				return;
 		}
 
 		var empty = GetEmptyTile();
-		if (empty is { Row: Size - 1, Col: Size - 1 }) MessageBox.Show("You win!");
+		if (empty is { Row: GridSize - 1, Col: GridSize - 1 }) MessageBox.Show("You win!");
 	}
 }

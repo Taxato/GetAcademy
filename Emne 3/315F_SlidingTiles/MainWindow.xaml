@@ -8,28 +8,37 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewModels:PuzzleViewModel}"
         Title="MainWindow"
-        Width="1200" Height="1200">
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
 
-    <Grid>
-        <Canvas Width="380" Height="380">
+    <Border Padding="30" Background="#222">
+        <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="600">
+            <Grid>
+                <Canvas
+                    Width="{Binding BoardSize}"
+                    Height="{Binding BoardSize}">
 
-            <ItemsControl ItemsSource="{Binding Tiles}">
+                    <ItemsControl ItemsSource="{Binding Tiles}">
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <controls:TileControl
-                            Command="{Binding DataContext.TileClickCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:TileControl
+                                    Command="{Binding DataContext.TileClickCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
 
-            </ItemsControl>
+                    </ItemsControl>
 
-        </Canvas>
-    </Grid>
+                </Canvas>
+            </Grid>
+        </Viewbox>
+    </Border>
+
 </Window>

@@ -38,24 +38,99 @@
     <Button Background="Transparent"
             BorderThickness="0"
             Padding="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
             Command="{Binding Command, ElementName=Root}"
             CommandParameter="{Binding}">
 
-        <Border x:Name="TileBorder"
-                Background="LightSteelBlue"
-                CornerRadius="12"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+        <Button.Style>
 
-            <TextBlock Text="{Binding Value}"
-                       FontSize="30"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
+            <Style TargetType="Button">
 
-        </Border>
+                <!-- remove default hover/press visuals -->
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+
+                            <Border Background="Transparent">
+
+                                <Border Background="LightSteelBlue"
+                                        CornerRadius="12"
+                                        RenderTransformOrigin="0.5,0.5">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform />
+                                    </Border.RenderTransform>
+
+                                    <ContentPresenter
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+
+                                            <Setter Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </Setter.Value>
+                                            </Setter>
+
+                                            <Style.Triggers>
+
+                                                <Trigger Property="IsMouseOver" Value="True">
+
+                                                    <Trigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                                    To="0.92"
+                                                                    Duration="0:0:0.08" />
+
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                                    To="0.92"
+                                                                    Duration="0:0:0.08" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.EnterActions>
+
+                                                    <Trigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                                                    To="1"
+                                                                    Duration="0:0:0.12" />
+
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                                                    To="1"
+                                                                    Duration="0:0:0.12" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
+
+                                                </Trigger>
+
+                                            </Style.Triggers>
+
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+
+                            </Border>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+            </Style>
+        </Button.Style>
+
+        <TextBlock Text="{Binding Value}"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
 
     </Button>
 
