@@ -7,7 +7,7 @@ namespace _315F_SlidingTiles.ViewModels;
 
 public class PuzzleViewModel
 {
-	private const int GridSize = 3;
+	private const int GridSize = 5;
 	private const double Gap = 5;
 	private const int ShuffleAmount = 500;
 
