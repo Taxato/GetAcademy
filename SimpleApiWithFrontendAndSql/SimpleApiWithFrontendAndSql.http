@@ -1,0 +1,6 @@
+@SimpleApiWithFrontendAndSql_HostAddress = http://localhost:5086
+
+GET {{SimpleApiWithFrontendAndSql_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,6 @@
+@ClaimTheSquareAPI_HostAddress = http://localhost:5095
+
+GET {{ClaimTheSquareAPI_HostAddress}}/squares/
+Accept: application/json
+
+###

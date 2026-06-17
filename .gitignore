@@ -2,3 +2,10 @@ S-QuadBit-Inventory/
 
 Emne 3/**/obj/
 Emne 3/**/bin/
+Emne 3/**/.idea/
+Emne 3/.idea/
+**/**/.idea/
+**/**/obj/
+**/**/bin/
+
+/Emne 3/.idea

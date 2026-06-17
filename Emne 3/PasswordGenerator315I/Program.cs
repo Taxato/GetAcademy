@@ -95,7 +95,7 @@ internal static class Program
 			Eksempel: PasswordGenerator 14 lLssdd
 			    betyr
 			        Min. 1 liten bokstav
-			        Min. 1 1 stor bokstav
+			        Min. 1 stor bokstav
 			        Min. 2 spesialtegn
 			        Min. 2 sifre
 			        Lengde på passordet skal være 14

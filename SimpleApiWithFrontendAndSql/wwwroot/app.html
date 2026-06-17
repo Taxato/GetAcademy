@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<button onclick="getContacts()">Hent kontakter</button>
+<hr/>
+
+<div id="app"></div>
+<script>
+    const model = {
+        newContact: {
+            name: '',
+            email: '',
+        },
+        contacts: [],
+    };
+    getContacts();
+
+    function updateView() {
+        const app = document.getElementById('app');
+        const formHtml = /*html*/ `
+            <input
+                type="text"
+                placeholder="Navn"
+                oninput="model.newContact.name = this.value"
+                value="${model.newContact.name ?? ''}"
+                />
+            <input
+                type="text"
+                placeholder="Epost"
+                oninput="model.newContact.email = this.value"
+                value="${model.newContact.email ?? ''}"
+                />
+
+            <button onclick="addContact()">Legg til kontakt</button>
+
+            <hr/>
+        `;
+
+        if (model.error) {
+            app.innerHTML = formHtml + `<span style="color: red">
+                <b>Feil</b><br/>
+                ${model.error}
+            </span>
+            `;
+            model.error = null;
+            return;
+        }
+
+        const contacts = model.contacts;
+
+        if (contacts.length === 0) {
+            app.innerHTML = formHtml + '<i>Ingen kontaker</i>';
+            return;
+        }
+
+        let html = '';
+        for (let contact of contacts) {
+            html += `<li>${contact.name} ${contact.email}</li>`;
+        }
+        app.innerHTML = formHtml + `               
+            <ul>${html}</ul>
+        `;
+    }
+
+    async function getContacts() {
+        try {
+            const response = await axios.get('/api/contact');
+            model.contacts = response.data;
+        } catch (e) {
+            model.error = e.message;
+        }
+        updateView();
+    }
+
+    async function addContact() {
+        // const newContact = structuredClone(model.newContact);
+        // const newContact = JSON.parse(JSON.stringify(model.newContact));
+        // const newContact = { ...newContact };
+        const newContact = {name: model.newContact.name, email: model.newContact.email};
+        try {
+            const response = await axios.post('/api/contact', newContact);
+        } catch (e) {
+            model.error = e.message;
+        }
+        await getContacts();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+[
+	{
+		"Id": 1,
+		"CustomerName": "Kari Nordmann",
+		"Room": "Rom A",
+		"Description": "Planleggingsm\u00F8te",
+		"Date": "2025-01-15",
+		"StartTime": "09:00:00",
+		"EndTime": "10:00:00"
+	},
+	{
+		"Id": 2,
+		"CustomerName": "Ola Hansen",
+		"Room": "Rom B",
+		"Description": "Kunderevision",
+		"Date": "2025-01-15",
+		"StartTime": "10:00:00",
+		"EndTime": "11:30:00"
+	},
+	{
+		"Id": 3,
+		"CustomerName": "Ingrid Berg",
+		"Room": "Rom A",
+		"Description": "Intervju",
+		"Date": "2025-01-16",
+		"StartTime": "13:00:00",
+		"EndTime": "14:00:00"
+	},
+	{
+		"Id": 4,
+		"CustomerName": "Jonas Lie",
+		"Room": "Rom C",
+		"Description": "Morgenm\u00F8te",
+		"Date": "2025-01-17",
+		"StartTime": "08:00:00",
+		"EndTime": "09:00:00"
+	},
+	{
+		"Id": 5,
+		"CustomerName": "Thomas Solheim",
+		"Room": "Rom A",
+		"Description": "Konferanse",
+		"Date": "2026-06-17",
+		"StartTime": "11:00:00",
+		"EndTime": "12:00:00"
+	},
+	{
+		"Id": 6,
+		"CustomerName": "Thomas",
+		"Room": "Rom B",
+		"Description": "Eksamen",
+		"Date": "2026-06-17",
+		"StartTime": "10:00:00",
+		"EndTime": "16:00:00"
+	}
+]
