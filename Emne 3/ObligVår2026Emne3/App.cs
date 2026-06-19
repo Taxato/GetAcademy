@@ -16,6 +16,7 @@ public class App
 					BookingConsole.ShowBookings(_manager.GetAll());
 					break;
 				case "2": // Add booking
+				{
 					var customerName = BookingConsole.AskForString("Kundenavn");
 					var room = BookingConsole.AskForString("Rom");
 					var date = BookingConsole.AskForString("Dato (yyyy-mm-dd)");
@@ -32,10 +33,38 @@ public class App
 					);
 					BookingConsole.ShowMessage(result);
 					break;
+				}
 				case "3": // Edit booking
+				{
+					var id = BookingConsole.AskForId(_manager.GetAllIds(), "Velg en ID");
+					var customerName = BookingConsole.AskForString("Kundenavn");
+					var room = BookingConsole.AskForString("Rom");
+					var date = BookingConsole.AskForString("Dato (yyyy-mm-dd)");
+					var startTime = BookingConsole.AskForString("Start tid (hh:mm)");
+					var endTime = BookingConsole.AskForString("Slutt tid (hh:mm)");
+					var description = BookingConsole.AskForString("Beskrivelse");
+					var result = _manager.EditBooking(
+						id,
+						customerName,
+						room,
+						date,
+						startTime,
+						endTime,
+						description
+					);
+					BookingConsole.ShowMessage(result);
 					break;
+				}
 				case "4": // Delete booking
+				{
+					var id = BookingConsole.AskForId(_manager.GetAllIds(), "Velg en ID");
+					var success = _manager.DeleteBooking(id);
+					if (success)
+						BookingConsole.ShowMessage("Slettet booking.");
+					else
+						BookingConsole.ShowMessage("Det oppstod en feil med å slette booking.");
 					break;
+				}
 				case "0":
 					return;
 				default:

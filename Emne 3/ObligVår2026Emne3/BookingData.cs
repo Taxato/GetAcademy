@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 
 namespace BookingApp;
 
@@ -32,6 +33,6 @@ public class BookingData
 	public static void SaveToFile(List<BookingData> bookings)
 	{
 		string json = JsonSerializer.Serialize(bookings, jsonSerializerOptions);
-		File.WriteAllText(filePath, json);
+		File.WriteAllText(filePath, json, Encoding.UTF8);
 	}
 }

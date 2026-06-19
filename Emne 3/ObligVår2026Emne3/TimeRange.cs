@@ -19,6 +19,6 @@ public class TimeRange
 
 	public bool OverLapsWith(TimeRange other)
 	{
-		return this.StartTime < other.StartTime && other.StartTime < this.EndTime;
+		return this.StartTime < other.EndTime && other.StartTime < this.EndTime;
 	}
 }

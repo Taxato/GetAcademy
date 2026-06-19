@@ -2,7 +2,7 @@
 
 public class BookingManager
 {
-	private List<Booking> _bookings = [];
+	private readonly List<Booking> _bookings = [];
 
 	public BookingManager()
 	{
@@ -41,11 +41,11 @@ public class BookingManager
 		);
 
 		if (ValidateBookingTime(newBooking))
-			return "Booking overlaps with another booking in the same room";
+			return "Feil: Booking tid overlapper med en annen booking i samme rom.";
 
 		_bookings.Add(newBooking);
 		SaveToFile();
-		return "Successfully added booking";
+		return "Ny booking opprettet.";
 	}
 
 	public bool DeleteBooking(int id)
@@ -70,7 +70,7 @@ public class BookingManager
 	{
 		var booking = GetAll().Find(b => b.Id == id);
 		if (booking == null)
-			return $"Error: Found no booking with ID {id}.";
+			return $"Feil: Fant ikke booking med ID {id}.";
 
 		Booking updatedBooking = new(
 			id,
@@ -83,14 +83,14 @@ public class BookingManager
 		);
 
 		if (ValidateBookingTime(updatedBooking))
-			return "Error: Booking time overlaps with another booking.";
+			return "Feil: Booking tid overlapper med en annen booking i samme rom.";
 
 		var index = _bookings.FindIndex(b => b.Id == updatedBooking.Id); // Should never return -1 since we're validating existence of Id in List
 
 		_bookings[index] = updatedBooking;
 		SaveToFile();
 
-		return "Successfully updated booking.";
+		return "Oppdaterte booking uten problem.";
 	}
 
 	private static List<Booking> LoadFromFile()
